@@ -10,6 +10,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
 const DURATION = "@hourly"
@@ -56,7 +57,8 @@ func main() {
 			}
 			alertCount++
 			enc := mahonia.NewEncoder("gbk")
-			ret := robotgo.ShowAlert(enc.ConvertString("timer-message"), enc.ConvertString(fmt.Sprintf("执行时间：%s\r\n时间映射：\r\n%s\r\n点击<确定>按钮程序退出", dur, sb.String())))
+			tm:=time.Now().Format("2006-01-02 15:04:05")
+			ret := robotgo.ShowAlert(enc.ConvertString("timer-message"), enc.ConvertString(fmt.Sprintf("执行时间:%s\r\n执行周期：%s\r\n时间映射：\r\n%s\r\n点击<确定>按钮程序退出", tm,dur, sb.String())))
 			if ret == 0 {
 				ret = robotgo.ShowAlert("", enc.ConvertString("确定要退出程序？"))
 				if ret == 0 {
